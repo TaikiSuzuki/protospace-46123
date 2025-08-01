@@ -120,6 +120,11 @@ a {
 
 /* メイン */
 
+/* 更新名前表記 */
+.user_name {
+margin-left: 200px; /* 左側に20pxの余白を設定 */
+}
+
 .greeting{
   margin-bottom: 20px;
 }
