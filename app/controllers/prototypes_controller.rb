@@ -1,5 +1,7 @@
 class PrototypesController < ApplicationController
   def index
+ #すべてのプロトタイプ情報を代入
+    @prototypes = Prototype.all
  #ユーザーネームの取得を許可
     if user_signed_in?
       @name = current_user.name
