@@ -67,4 +67,9 @@ group :test do
   gem "selenium-webdriver"
 end
 
+  # deviseのインストール
 gem 'devise'
+
+  # MiniMagickとImageProcessingのインストール
+gem 'mini_magick'
+gem 'image_processing', '~> 1.2'

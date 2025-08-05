@@ -1,5 +1,7 @@
 class PrototypesController < ApplicationController
   def index
+ #すべてのプロトタイプ情報を代入
+    @prototypes = Prototype.all
  #ユーザーネームの取得を許可
     if user_signed_in?
       @name = current_user.name
@@ -7,5 +9,56 @@ class PrototypesController < ApplicationController
       @name = "ゲスト"
     end
   end
+
+  def new
+    @prototype = Prototype.new
+  end
+
+    # Prototype.create(prototype_params)
+    # redirect_to '/'
+  def create
+    @prototype = Prototype.new(prototype_params)
+    if @prototype.save 
+      redirect_to root_path
+    else
+      render :new, status: :unprocessable_entity # 新規投稿ページに戻る
+    end
+  end
+
+# showアクション(詳細表示)の定義
+  def show
+    @prototype = Prototype.find(params[:id])
+  end
+
+  
+# editアクション(編集)の定義
+  def edit
+    @prototype = Prototype.find(params[:id])
+  end
+
+# updateアクション(更新)の定義
+ def update
+    @prototype = Prototype.find(params[:id])
+    if @prototype.update(prototype_params)
+      redirect_to root_path
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+# destroyアクション(削除)の定義
+  def destroy
+    @prototype = Prototype.find(params[:id])
+    @prototype.destroy
+    redirect_to root_path
+  end
+
+# private以下の記述はすべてプライベートメソッドになる
+  private
+  
+  def prototype_params
+    params.require(:prototype).permit(:title, :catch_copy, :concept, :image).merge(user_id: current_user.id)
+  end
+
 
 end
