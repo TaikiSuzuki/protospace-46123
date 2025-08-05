@@ -1,12 +1,19 @@
 class CommentsController < ApplicationController
 
+  # データの保存があったときなかった時の処理
   def create
-    Comment.create(comment_params)
+    @prototype = Prototype.find(params[:prototype_id])
+    @comment = @prototype.comments.new(comment_params)
+    if @comment.save
+      redirect_to prototype_path(@prototype)
+    else
+      render "prototypes/show", status: :unprocessable_entity
+    end
   end
 
   private
   def comment_params
-    params.require(:comment).permit(:text).merge(user_id: current_user.id, prototype_id: params[:prototype_id])
+    params.require(:comment).permit(:content).merge(user_id: current_user.id, prototype_id: params[:prototype_id])
   end
 
 end

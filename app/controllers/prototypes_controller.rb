@@ -25,9 +25,12 @@ class PrototypesController < ApplicationController
     end
   end
 
-# showアクション(詳細表示)の定義
+# showアクション(詳細ページ)の定義
   def show
     @prototype = Prototype.find(params[:id])
+    @comment = Comment.new
+    # すべてのコメントの代入
+    @comments = @prototype.comments.includes(:user)
   end
 
   
