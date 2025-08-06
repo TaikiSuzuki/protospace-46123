@@ -6,7 +6,11 @@ Rails.application.routes.draw do
 
   root to: "prototypes#index"
   # new actionのルーティング設定
-  resources :prototypes, only: [:new, :create, :show, :edit, :update, :destroy]
+  resources :prototypes, only: [:new, :create, :show, :edit, :update, :destroy] do
+    resources :comments, only: :create
+  end
+
+    resources :users, only: :show
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.

@@ -125,6 +125,10 @@ a {
 margin-left: 200px; /* 左側に20pxの余白を設定 */
 }
 
+.user-name {
+  text-decoration: underline;
+}
+
 .greeting{
   margin-bottom: 20px;
 }

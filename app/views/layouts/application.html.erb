@@ -37,9 +37,9 @@
       </div>
     </header>
 
-     <div class="user_name">
-       <p>こんにちは、<%= @name %>さん</p>
-    </div>
+      <%# <div class="user_name">
+        <%= link_to "こんにちは、<span class='user-name'>#{@name}</span>さん".html_safe, user_path(current_user), class: "user-name-link" %>
+      <%# </div> %>
 
     <%= yield %>
     <footer class="footer">
