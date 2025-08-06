@@ -12,18 +12,15 @@
 default: &default
   adapter: mysql2
   encoding: utf8
+  collation: utf8mb4_general_ci
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: root
   password:
-  socket: /tmp/mysql.sock
+  host: localhost
 
 development:
   <<: *default
   database: protospace_46123_development
-  username: root
-  password:
-  host: localhost
-  database: aprotospace_46123_development
 
 
 # Warning: The database defined as "test" will be erased and
@@ -32,11 +29,6 @@ development:
 test:
   <<: *default
   database: protospace_46123_test
-  adapter: mysql2
-  username: root
-  password:
-  host: localhost
-  database: aprotospace_46123_development
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -59,9 +51,7 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 production:
-  <<: *default
-  database: protospace_46123_production
-  username: protospace_46123
-  password: <%= ENV["PROTOSPACE_46123_DATABASE_PASSWORD"] %>
   adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   url: <%= ENV['DATABASE_URL'] %>
