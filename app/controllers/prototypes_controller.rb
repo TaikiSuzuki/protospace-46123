@@ -1,4 +1,6 @@
 class PrototypesController < ApplicationController
+    before_action :authenticate_user!, except: [:index, :show]
+
   def index
  #すべてのプロトタイプ情報を代入
     @prototypes = Prototype.all
@@ -37,6 +39,9 @@ class PrototypesController < ApplicationController
 # editアクション(編集)の定義
   def edit
     @prototype = Prototype.find(params[:id])
+    unless @prototype.user_id == current_user.id
+      redirect_to root_path
+    end
   end
 
 # updateアクション(更新)の定義
