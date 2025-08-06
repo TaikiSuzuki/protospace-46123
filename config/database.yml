@@ -7,13 +7,13 @@ development:
   <<: *default
   database: protospace_46123_development
   username: root
-  password: 
+  password:
 
 test:
   <<: *default
   database: protospace_46123_test
   username: root
-  password: 
+  password:
 
 production:
   adapter: postgresql
