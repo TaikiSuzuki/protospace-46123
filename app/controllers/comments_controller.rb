@@ -2,14 +2,16 @@ class CommentsController < ApplicationController
 
   # データの保存があったときなかった時の処理
   def create
-    @prototype = Prototype.find(params[:prototype_id])
-    @comment = @prototype.comments.new(comment_params)
+    @comment = Comment.new(comment_params)
     if @comment.save
-      redirect_to prototype_path(@prototype)
+      redirect_to prototype_path(@comment.prototype)
     else
+      @prototype = @comment.prototype
+      @comments = @prototype.comments.includes(:user)
       render "prototypes/show", status: :unprocessable_entity
     end
   end
+
 
   private
   def comment_params

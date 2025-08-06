@@ -2,23 +2,20 @@
   <div class="inner">
     <div class="prototype__wrapper">
       <p class="prototype__hedding">
-        <%= "プロトタイプのタイトル"%>
+        <%= @prototype.title %>
       </p>
-      <% if user_signed_in? %>
-        <%= link_to "by プロトタイプの投稿者", user_path(current_user.id), class: :prototype__user %>
-      <% else %>
-        <p>by プロトタイプの投稿者</p>
-      <% end %>
+        <div class="prototype__user">by 
+        <%= link_to @prototype.user.name, user_path(@prototype.user), class: :prototype__user_link %>
+      </div>
       <%# プロトタイプの投稿者とログインしているユーザーが同じであれば以下を表示する %>
-          <% if user_signed_in? && current_user.id == @prototype.user_id %>
+      <% if user_signed_in? && current_user.id == @prototype.user_id %>
         <div class="prototype__manage">
           <%= link_to "編集する", edit_prototype_path(@prototype), class: :prototype__btn %>
-      <%# // 削除の処理の記載 %>
+          <%# 削除の処理 %>
           <%= link_to "削除する", prototype_path(@prototype) , data: { turbo_method: :delete} , class: :prototype__btn %>
-          <%# <%= link_to "削除する", "/prototypes/#{@prototype.id}" , data: { turbo_method: :delete} , class: :prototype__btn %>
         </div>
+      <% end %>
       <%# // プロトタイプの投稿者とログインしているユーザーが同じであれば上記を表示する %>
-          <% end %>
       <div class="prototype__image">
         <%= image_tag @prototype.image %>
       </div>
@@ -32,20 +29,20 @@
         <div class="prototype__detail">
           <p class="detail__title">コンセプト</p>
           <p class="detail__message">
-            <%= @prototype.concept  %>
+            <%= @prototype.concept %>
           </p>
         </div>
       </div>
       <div class="prototype__comments">
         <%# ログインしているユーザーには以下のコメント投稿フォームを表示する %>
         <% if user_signed_in? %>
-          <%= form_with model:[@prototype, @comment],local: true do |f|%>
+          <%= form_with model:[@prototype, @comment], local: true do |f|%>
             <div class="field">
               <%= f.label :content, "コメント" %><br />
               <%= f.text_field :content, id:"comment_content" %>
             </div>
             <div class="actions">
-              <%= f.submit "送信する", class: :form__btn  %>
+              <%= f.submit "送信する", class: :form__btn %>
             </div>
           <% end %>
         <% end %>
@@ -54,12 +51,12 @@
         <%# コメントを繰り返し、eachで分解して表示 %>
         <% @comments.each do |comment| %>
           <%# 投稿に紐づくコメントを一覧する処理を記述する %>
-            <li class="comments_list">
-              <%= comment.content %>
-              <%= link_to "（ #{comment.user.name} ）", user_path(comment.user), class: :comment_user %>
-            </li>
-          <% end %>
-          <%# // 投稿に紐づくコメントを一覧する処理を記述する %>
+          <li class="comments_list">
+            <%= comment.content %>
+            <%= link_to "（ #{comment.user.name} ）", user_path(comment.user), class: :comment_user %>
+          </li>
+        <% end %>
+        <%# // 投稿に紐づくコメントを一覧する処理を記述する %>
         </ul>
       </div>
     </div>
