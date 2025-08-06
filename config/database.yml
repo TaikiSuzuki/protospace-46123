@@ -1,22 +1,24 @@
 default: &default
-  adapter: mysql2
-  encoding: utf8mb4
+  encoding: utf8
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
   <<: *default
-  database: protospace_46123_development
+  adapter: mysql2
   username: root
   password:
+  host: localhost
+  database: protospace_46123_development
 
 test:
   <<: *default
-  database: protospace_46123_test
+  adapter: mysql2
   username: root
   password:
+  host: localhost
+  database: protospace_46123_test
 
 production:
+  <<: *default
   adapter: postgresql
-  encoding: unicode
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   url: <%= ENV['DATABASE_URL'] %>
